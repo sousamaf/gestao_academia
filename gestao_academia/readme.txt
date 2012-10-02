@@ -9,5 +9,6 @@ Features:
 - Gestao de funcionarios;
 - Controle de devedores;
 - Controle de frequencia;
+- Controle de medidas;
 - Agenda de Aulas;
 - Historico;
