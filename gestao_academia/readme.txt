@@ -5,6 +5,7 @@ Descricao do projeto:
 Sistema Web de gestao de academia de ginastica.
 
 Features:
+- Controle de Acesso;
 - Gestao de clientes;
 - Gestao de funcionarios;
 - Controle de devedores;
