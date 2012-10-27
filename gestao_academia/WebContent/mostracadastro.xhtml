@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style type="text/css">
+<!--
+#titulo {
+	font-family: Verdana;
+	font-size: 18px;
+	color: #006600;
+}
+-->
+</style>
+	<title>Usuarios Cadastrados</title>
+</h:head>
+<h:body>
+	<span id="titulo">Usuarios Cadastrados</span>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputText for="nome" value="Nome:"></h:outputText>
+			<h:outputText value="#{alunoBean.aluno.nome}"></h:outputText>
+			<h:outputText for="email" value="Email:"></h:outputText>
+			<h:outputText value="#{alunoBean.aluno.email}"></h:outputText>
+			<h:outputText for="sexo" value="Sexo:"></h:outputText>
+			<h:outputText value="#{alunoBean.aluno.sexo}"></h:outputText>
+			<h:outputText for="celular" value="Celular:"></h:outputText>
+			<h:outputText value="#{alunoBean.aluno.celular}"></h:outputText>
+		</h:panelGrid>
+		<h:outputText></h:outputText>
+		<h:commandButton action="index" value="Página inicial"></h:commandButton>
+		<h:commandButton action="cadastro" value="Cadastrar Novo Aluno"></h:commandButton>
+	</h:form>
+</h:body>
+</html>
