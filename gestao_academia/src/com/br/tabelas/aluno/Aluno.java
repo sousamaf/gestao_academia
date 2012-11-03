@@ -1,4 +1,4 @@
-package com.br.tabelas;
+package com.br.tabelas.aluno;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aluno")
 public class Aluno implements Serializable {
+	
 
 	private static final long serialVersionUID = 2471765773806278661L;
 	@Id
@@ -24,8 +25,29 @@ public class Aluno implements Serializable {
 	private String celular;
 	private String sexo;
 	private boolean ativo;
+	private Date data_entrada;
+	private Date data_saida;
+	private String observacao;
 	
 	
+	public Date getData_entrada() {
+		return data_entrada;
+	}
+	public void setData_entrada(Date data_entrada) {
+		this.data_entrada = data_entrada;
+	}
+	public Date getData_saida() {
+		return data_saida;
+	}
+	public void setData_saida(Date data_saida) {
+		this.data_saida = data_saida;
+	}
+	public String getObservacao() {
+		return observacao;
+	}
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -87,11 +109,17 @@ public class Aluno implements Serializable {
 		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result
+				+ ((data_entrada == null) ? 0 : data_entrada.hashCode());
+		result = prime * result
+				+ ((data_saida == null) ? 0 : data_saida.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result
 				+ ((nascimento == null) ? 0 : nascimento.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result
+				+ ((observacao == null) ? 0 : observacao.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
 		return result;
@@ -117,6 +145,16 @@ public class Aluno implements Serializable {
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
+		if (data_entrada == null) {
+			if (other.data_entrada != null)
+				return false;
+		} else if (!data_entrada.equals(other.data_entrada))
+			return false;
+		if (data_saida == null) {
+			if (other.data_saida != null)
+				return false;
+		} else if (!data_saida.equals(other.data_saida))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -137,6 +175,11 @@ public class Aluno implements Serializable {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (observacao == null) {
+			if (other.observacao != null)
+				return false;
+		} else if (!observacao.equals(other.observacao))
+			return false;
 		if (senha == null) {
 			if (other.senha != null)
 				return false;
@@ -149,4 +192,5 @@ public class Aluno implements Serializable {
 			return false;
 		return true;
 	}
+	
 }
