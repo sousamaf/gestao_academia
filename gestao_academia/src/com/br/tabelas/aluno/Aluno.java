@@ -2,6 +2,8 @@ package com.br.tabelas.aluno;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ public class Aluno implements Serializable {
 	private static final long serialVersionUID = 2471765773806278661L;
 	@Id
 	@GeneratedValue
+	@Column(name = "id_aluno")
 	private Integer codigo;
 	private String nome;
 	private String email;

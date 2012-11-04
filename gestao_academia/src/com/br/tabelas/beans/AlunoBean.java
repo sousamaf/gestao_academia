@@ -1,4 +1,4 @@
-package com.br.tabelasbeans;
+package com.br.tabelas.beans;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,8 +6,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import com.br.tabelas.Aluno;
-import com.br.tabelas.AlunoDao;
+
+import com.br.tabelas.aluno.Aluno;
+import com.br.tabelas.aluno.AlunoDaoHibernate;
 
 
 @ManagedBean(name = "alunoBean")
@@ -43,7 +44,7 @@ public class AlunoBean implements Serializable {
 			context.addMessage("confirmasenha", new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha confirmada incorretamente", ""));
 			return null;
 		}
-		AlunoDao alunoDao = new AlunoDao();
+		AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
 		Integer user_id = this.aluno.getCodigo(); System.out.println(user_id);
 		alunoDao.salvar(this.aluno);
 		return "mostracadastro";
@@ -51,7 +52,7 @@ public class AlunoBean implements Serializable {
 	
 	public String excluir()
 	{
-		AlunoDao alunoDao = new AlunoDao();
+		AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
 		alunoDao.excluir(this.aluno);
 		this.lista = null;
 		this.lista = this.getLista();
@@ -64,14 +65,14 @@ public class AlunoBean implements Serializable {
 		else
 			this.aluno.setAtivo(true);
 		
-		AlunoDao alunoDao = new AlunoDao();
+		AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
 		alunoDao.salvar(this.aluno);
 		return null;
 	}
 	
 	public List<Aluno> getLista(){
 		if(this.lista == null){
-			AlunoDao alunoDao = new AlunoDao();
+			AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
 			this.lista = alunoDao.listar();
 		}
 		return this.lista;
