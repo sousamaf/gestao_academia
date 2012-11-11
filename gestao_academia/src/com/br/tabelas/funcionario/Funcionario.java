@@ -2,6 +2,7 @@ package com.br.tabelas.funcionario;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import bd.beans.Empresa;
-import bd.beans.Pessoa;
-import bd.beans.Tipo_funcionario;
+import com.br.tabelas.empresa.Empresa;
+import com.br.tabelas.pessoa.Pessoa;
 import com.br.tabelas.matricula.Matricula;
+import com.br.tabelas.tipo_funcionario.Tipo_funcionario;
 
 @Entity
 @Table(name = "funcionairo")
@@ -28,117 +27,93 @@ public class Funcionario implements Serializable {
 	@GeneratedValue
 	@Column(name = "id_funcionario")
 	private Integer id_funcionario;
-	private Date data_entrada;
-	private Date data_saida;
+	private Calendar data_entrada;
+	private Calendar data_saida;
 	private Boolean situacao;
 	private int rg;
 	private String observacao;
 	private int salario;
-	@OneToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToOne
 	@JoinColumn(name = "empresa", nullable = false)
 	private Empresa id_empresa;
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "tipo_funcionario", nullable = false)
 	private Tipo_funcionario id_tipofuncionario;
 	@OneToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "matricula", nullable = false)
 	private Matricula id_matricula;
 	@OneToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "pessoa", nullable = false)
 	private Pessoa cpf;
-
+	
+	
+	
 	public Integer getId_funcionario() {
 		return id_funcionario;
 	}
-
 	public void setId_funcionario(Integer id_funcionario) {
 		this.id_funcionario = id_funcionario;
 	}
-
-	public Date getData_entrada() {
+	public Calendar getData_entrada() {
 		return data_entrada;
 	}
-
-	public void setData_entrada(Date data_entrada) {
+	public void setData_entrada(Calendar data_entrada) {
 		this.data_entrada = data_entrada;
 	}
-
-	public Date getData_saida() {
+	public Calendar getData_saida() {
 		return data_saida;
 	}
-
-	public void setData_saida(Date data_saida) {
+	public void setData_saida(Calendar data_saida) {
 		this.data_saida = data_saida;
 	}
-
 	public Boolean getSituacao() {
 		return situacao;
 	}
-
 	public void setSituacao(Boolean situacao) {
 		this.situacao = situacao;
 	}
-
 	public int getRg() {
 		return rg;
 	}
-
 	public void setRg(int rg) {
 		this.rg = rg;
 	}
-
 	public String getObservacao() {
 		return observacao;
 	}
-
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
 	public int getSalario() {
 		return salario;
 	}
-
 	public void setSalario(int salario) {
 		this.salario = salario;
 	}
-
 	public Empresa getId_empresa() {
 		return id_empresa;
 	}
-
 	public void setId_empresa(Empresa id_empresa) {
 		this.id_empresa = id_empresa;
 	}
-
 	public Tipo_funcionario getId_tipofuncionario() {
 		return id_tipofuncionario;
 	}
-
 	public void setId_tipofuncionario(Tipo_funcionario id_tipofuncionario) {
 		this.id_tipofuncionario = id_tipofuncionario;
 	}
-
 	public Matricula getId_matricula() {
 		return id_matricula;
 	}
-
 	public void setId_matricula(Matricula id_matricula) {
 		this.id_matricula = id_matricula;
 	}
-
 	public Pessoa getCpf() {
 		return cpf;
 	}
-
 	public void setCpf(Pessoa cpf) {
 		this.cpf = cpf;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -166,7 +141,6 @@ public class Funcionario implements Serializable {
 				+ ((situacao == null) ? 0 : situacao.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -227,4 +201,5 @@ public class Funcionario implements Serializable {
 			return false;
 		return true;
 	}
+	
 }

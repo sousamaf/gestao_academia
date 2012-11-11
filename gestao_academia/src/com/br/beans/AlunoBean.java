@@ -1,4 +1,4 @@
-package com.br.tabelas.beans;
+package com.br.beans;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,9 +6,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
 import com.br.tabelas.aluno.Aluno;
 import com.br.tabelas.aluno.AlunoDaoHibernate;
+import com.br.tabelas.situacao_aluno.Situacao_aluno;
+import com.br.tabelas.usuario.Usuario;
 
 
 @ManagedBean(name = "alunoBean")
@@ -23,29 +24,33 @@ public class AlunoBean implements Serializable {
 	private Aluno aluno = new Aluno();
 	private String confirmasenha;
 	private List<Aluno> lista;
+	private Situacao_aluno ativo;
+	private Usuario senha;
 	private Boolean edicao = false;
 	
-
+ 
 	public String novo() {
 		this.aluno = new Aluno();
-		this.aluno.setAtivo(true);
+		this.aluno.setId_situacao(ativo);
 		return "usuario";
 	}
-	
+
 	public String editar(){
-		this.confirmasenha = this.aluno.getSenha();
+		this.confirmasenha = this.senha.getSenha();
 		return "cadastro_edicao";
 	}
 
 	public String salvar() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		if(!this.aluno.getSenha().equals(this.confirmasenha))
+		if(!this.senha.getSenha().equals(this.confirmasenha))
 		{
 			context.addMessage("confirmasenha", new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha confirmada incorretamente", ""));
 			return null;
 		}
 		AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
-		Integer user_id = this.aluno.getCodigo(); System.out.println(user_id);
+		if(this.aluno != null) {
+			Integer user_id = this.aluno.getId_aluno(); System.out.println(user_id);
+		}
 		alunoDao.salvar(this.aluno);
 		return "mostracadastro";
 	}
@@ -59,17 +64,8 @@ public class AlunoBean implements Serializable {
 		return null;
 	}
 	
-	public String ativar(){
-		if(this.aluno.isAtivo())
-			this.aluno.setAtivo(false);
-		else
-			this.aluno.setAtivo(true);
-		
-		AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
-		alunoDao.salvar(this.aluno);
-		return null;
-	}
-	
+
+
 	public List<Aluno> getLista(){
 		if(this.lista == null){
 			AlunoDaoHibernate alunoDao = new AlunoDaoHibernate();
@@ -91,6 +87,22 @@ public class AlunoBean implements Serializable {
 
 	public void setConfirmasenha(String confirmasenha) {
 		this.confirmasenha = confirmasenha;
+	}
+	
+	public Usuario getSenha() {
+		return senha;
+	}
+
+	public void setSenha(Usuario senha) {
+		this.senha = senha;
+	}
+
+	public Situacao_aluno getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Situacao_aluno ativo) {
+		this.ativo = ativo;
 	}
 
 	public Boolean getEdicao() {

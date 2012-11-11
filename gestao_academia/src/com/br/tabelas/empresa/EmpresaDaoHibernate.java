@@ -1,19 +1,18 @@
-package com.br.tabelas.tipo_usuario;
-
+package com.br.tabelas.empresa;
 
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.br.conexao.HibernateUtil;
-import com.br.tabelas.tipo_usuario.Tipo_usuario;
+import com.br.tabelas.empresa.Empresa;
 
-public class Tipo_usuarioDaoHibernate {
+public class EmpresaDaoHibernate {
 	
 	private Session sessao;
 	private Transaction transacao;
 	
-	public Tipo_usuarioDaoHibernate()
+	public EmpresaDaoHibernate()
 	{
 		sessao = HibernateUtil.getSessionFactory().getCurrentSession();
 		transacao = (Transaction) sessao.beginTransaction();
@@ -36,14 +35,14 @@ public class Tipo_usuarioDaoHibernate {
 		this.transacao = transacao;
 	}
 	
-	public void salvar(Tipo_usuario tipo_usuario) {
+	public void salvar(Empresa empresa) {
 		try {
 			this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 			this.transacao = (Transaction) this.sessao.beginTransaction();
-			this.sessao.save(tipo_usuario);
+			this.sessao.save(empresa);
 			this.transacao.commit();
 		} catch (HibernateException e){
-			System.out.println("Nao foi possivel inserir o tipo de usuario. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel inserir a empresa. Erro: " + e.getMessage());
 		} finally {
 			try {
 				if(this.sessao.isConnected())
@@ -56,17 +55,17 @@ public class Tipo_usuarioDaoHibernate {
 	}
 
 	
-	public void atualizar(Tipo_usuario tipo_usuario) {
+	public void atualizar(Empresa empresa){
 		try 
 		{
 			this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 			this.transacao = (Transaction) this.sessao.beginTransaction();
-			this.sessao.update(tipo_usuario);
-			this.sessao.merge(tipo_usuario);
+			this.sessao.update(empresa);
+			this.sessao.merge(empresa);
 			this.transacao.commit();
 		} catch (HibernateException e)
 		{
-			System.out.println("Nao foi possivel atualizar o tipo de usuario. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel atualizar a empresa. Erro: " + e.getMessage());
 		}
 		finally
 		{
@@ -82,40 +81,41 @@ public class Tipo_usuarioDaoHibernate {
 	}
 
 	
-	public void excluir(Tipo_usuario tipo_usuario) {
+	public void excluir(Empresa empresa) {
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		this.sessao.delete(tipo_usuario);
+		this.sessao.delete(empresa);
 		this.transacao.commit();
 	}
 
 
-	public Tipo_usuario carregar(Integer id_tipousuario) {
+	public Empresa carregar(Integer id_empresa) {
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		Tipo_usuario tp_usuario = (Tipo_usuario) this.sessao.get(Tipo_usuario.class, id_tipousuario);
+		Empresa empresa = (Empresa) this.sessao.get(Empresa.class, id_empresa);
 		this.transacao.commit();
 		this.sessao.close();
-		return tp_usuario;
+		return empresa;
 		
 	}
 	
-	public Tipo_usuario buscarPorPrivilegio(String privilegio) {
-		String hql = "select u from Tipo_usuario u where u.privilegio = :privilegio";
+	public Empresa buscarPorCnpj(String cnpj) {
+		String hql = "select u from Empresa u where u.cnpj = :cnpj";
 		this.transacao = (Transaction) this.sessao.beginTransaction();
 		org.hibernate.Query consulta = this.sessao.createQuery(hql);
-		consulta.setString("privilegio", privilegio);
-		Tipo_usuario tp_usuario = (Tipo_usuario) consulta.uniqueResult();
+		consulta.setString("cnpj", cnpj);
+		Empresa empresa = (Empresa) consulta.uniqueResult();
 		this.transacao.commit();
 		this.sessao.close();
-		return tp_usuario;
+		return empresa;
 	}
+
 	
-	@SuppressWarnings("unchecked")
-	public List<Tipo_usuario> listar() {
+	public List<Empresa> listar() {
 		this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		List<Tipo_usuario> tipo_usuarios = this.sessao.createCriteria(Tipo_usuario.class).list();
+		List<Empresa> empresas = this.sessao.createCriteria(Empresa.class).list();
 		this.transacao.commit();
 		this.sessao.close();
-		return tipo_usuarios;
+		return empresas;
 	}
+
 }

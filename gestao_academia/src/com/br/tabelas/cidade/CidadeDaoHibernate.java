@@ -1,4 +1,4 @@
-package com.br.tabelas.tipo_usuario;
+package com.br.tabelas.cidade;
 
 
 import java.util.List;
@@ -6,14 +6,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.br.conexao.HibernateUtil;
-import com.br.tabelas.tipo_usuario.Tipo_usuario;
+import com.br.tabelas.cidade.Cidade;
 
-public class Tipo_usuarioDaoHibernate {
+public class CidadeDaoHibernate {
 	
 	private Session sessao;
 	private Transaction transacao;
 	
-	public Tipo_usuarioDaoHibernate()
+	public CidadeDaoHibernate()
 	{
 		sessao = HibernateUtil.getSessionFactory().getCurrentSession();
 		transacao = (Transaction) sessao.beginTransaction();
@@ -36,14 +36,14 @@ public class Tipo_usuarioDaoHibernate {
 		this.transacao = transacao;
 	}
 	
-	public void salvar(Tipo_usuario tipo_usuario) {
+	public void salvar(Cidade cidade) {
 		try {
 			this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 			this.transacao = (Transaction) this.sessao.beginTransaction();
-			this.sessao.save(tipo_usuario);
+			this.sessao.save(cidade);
 			this.transacao.commit();
 		} catch (HibernateException e){
-			System.out.println("Nao foi possivel inserir o tipo de usuario. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel inserir a cidade. Erro: " + e.getMessage());
 		} finally {
 			try {
 				if(this.sessao.isConnected())
@@ -56,17 +56,17 @@ public class Tipo_usuarioDaoHibernate {
 	}
 
 	
-	public void atualizar(Tipo_usuario tipo_usuario) {
+	public void atualizar(Cidade cidade) {
 		try 
 		{
 			this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 			this.transacao = (Transaction) this.sessao.beginTransaction();
-			this.sessao.update(tipo_usuario);
-			this.sessao.merge(tipo_usuario);
+			this.sessao.update(cidade);
+			this.sessao.merge(cidade);
 			this.transacao.commit();
 		} catch (HibernateException e)
 		{
-			System.out.println("Nao foi possivel atualizar o tipo de usuario. Erro: " + e.getMessage());
+			System.out.println("Nao foi possivel atualizar a cidade. Erro: " + e.getMessage());
 		}
 		finally
 		{
@@ -82,40 +82,39 @@ public class Tipo_usuarioDaoHibernate {
 	}
 
 	
-	public void excluir(Tipo_usuario tipo_usuario) {
+	public void excluir(Cidade cidade) {
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		this.sessao.delete(tipo_usuario);
+		this.sessao.delete(cidade);
 		this.transacao.commit();
 	}
 
 
-	public Tipo_usuario carregar(Integer id_tipousuario) {
+	public Cidade carregar(Integer id_cidade) {
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		Tipo_usuario tp_usuario = (Tipo_usuario) this.sessao.get(Tipo_usuario.class, id_tipousuario);
+		Cidade cidade = (Cidade) this.sessao.get(Cidade.class, id_cidade);
 		this.transacao.commit();
 		this.sessao.close();
-		return tp_usuario;
-		
+		return cidade;
 	}
 	
-	public Tipo_usuario buscarPorPrivilegio(String privilegio) {
-		String hql = "select u from Tipo_usuario u where u.privilegio = :privilegio";
+	public Cidade buscarPorCidade(String cidade) {
+		String hql = "select u from Cidade u where u.cidade = :cidade";
 		this.transacao = (Transaction) this.sessao.beginTransaction();
 		org.hibernate.Query consulta = this.sessao.createQuery(hql);
-		consulta.setString("privilegio", privilegio);
-		Tipo_usuario tp_usuario = (Tipo_usuario) consulta.uniqueResult();
+		consulta.setString("cidade", cidade);
+		Cidade cid = (Cidade) consulta.uniqueResult();
 		this.transacao.commit();
 		this.sessao.close();
-		return tp_usuario;
+		return cid;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Tipo_usuario> listar() {
+
+	public List<Cidade> listar() {
 		this.setSessao(HibernateUtil.getSessionFactory().getCurrentSession());
 		this.transacao = (Transaction) this.sessao.beginTransaction();
-		List<Tipo_usuario> tipo_usuarios = this.sessao.createCriteria(Tipo_usuario.class).list();
+		List<Cidade> cidades = this.sessao.createCriteria(Cidade.class).list();
 		this.transacao.commit();
 		this.sessao.close();
-		return tipo_usuarios;
+		return cidades;
 	}
+
 }

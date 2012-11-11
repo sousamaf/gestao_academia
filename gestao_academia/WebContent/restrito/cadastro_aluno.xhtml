@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/interna.xhtml">
+
+	<ui:define name="titulo">
+    Cadastro de Alunos
+	</ui:define>
+	<ui:define name="corpo">
+		<h:form id="edicao">
+			<h:messages />
+			<h:inputHidden value="#{alunoBean.aluno.id_aluno}" />
+			<h:panelGrid columns="3">
+
+				<h:outputLabel id="txtDataEntrada" value="Data Entrada:" for="data_entrada" />
+				<p:calendar id="data_entrada" label="Data Entrada:" value="#{alunoBean.aluno.data_entrada}" size="10" maxlength="10" required="true" requiredMessage="Digite sua data de entrada">
+				<f:convertDateTime pattern="d/M/yyyy" /></p:calendar>
+				<h:message errorStyle="color:red; display:block" for="data_entrada"></h:message>
+
+
+				<h:outputLabel id="txtDataSaida" value="Data Saida:" for="data_saida" />
+				<p:calendar id="data_saida" label="Data Saida:" value="#{alunoBean.aluno.data_saida}" size="10" maxlength="10" required="false"> 
+				<f:convertDateTime pattern="d/M/yyyy"/></p:calendar>
+				<h:message errorStyle="color:red; display:block" for="data_saida"></h:message>
+
+				<h:outputText id="txtObservacao" value="Observacao:" for="observacao"></h:outputText>
+				<h:inputText id="observacao" label="Observacao:" value="#{alunoBean.aluno.observacao}" size="30" maxlength="100" required="false"></h:inputText>
+				<h:message errorStyle="color:red; display:block" for="observacao"></h:message>
+			
+				<h:outputText></h:outputText>
+				<h:commandButton action="#{alunoBean.salvar}" value="Salvar"></h:commandButton>
+			</h:panelGrid>
+		</h:form>
+		<h:form>
+			<h:commandLink action="/templates/principal" value="Retornar"></h:commandLink>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

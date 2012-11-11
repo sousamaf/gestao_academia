@@ -8,7 +8,7 @@
 	
 <h:head>
 	<title>Cadastro Aluno</title>
-	<h:outputStylesheet library="css" name="default2.css" />
+
 </h:head>
 <h:body>
 <h:form>
@@ -22,24 +22,22 @@
 		<h:inputText id="nome" label="Nome:" value="#{alunoBean.aluno.nome}" size="30" maxlength="30" required="true" redisplay="true" requiredMessage="Insira nome" validatorMessage="Nome deve conter no minimo 10 caracters">
 		<f:validateLength minimum="10" maximum="30" /></h:inputText>
 		<h:message errorStyle="color:red; display:block" for="nome"></h:message>
-		
-		
-	
 
+		<h:outputLabel id="txtCelular" value="Celular:" for="celular"></h:outputLabel>
+		<h:inputText id="celular" label="Celular:" value="#{alunoBean.aluno.celular}" size="10" /> 
+		<h:message errorStyle="color:red; display:block" for="celular"></h:message>
 		
-		<h:outputLabel id="txtDataNascimento" value="Data Nascimento:" for="data" />
-		<p:calendar label="Data Nascimento" value="#{alunoBean.aluno.nascimento}" size="10" maxlength="10" required="true" requiredMessage="Digite sua data de nascimento">
-    	<f:convertDateTime locale="pt" showButtonPanel="true" navigator="true" id="data"/></p:calendar>
-		<h:message errorStyle="color:red; display:block" for="data"></h:message>
 
-		<h:outputLabel id="txtCelular" value="Celular:" for="celular" />
-		<h:inputText id="celular" label="Celular" value="#{alunoBean.aluno.celular}" size="10" /> 
-		<h:message for="celular"></h:message>
-		
 		<h:outputText id="txtEmail" value="E-mail:" for="email"></h:outputText>
 		<h:inputText id="email" label="E-mail:" value="#{alunoBean.aluno.email}" size="50" maxlength="50" required="false" validatorMessage="Insira e-mail correto"><f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"></f:validateRegex></h:inputText>
 		<h:message errorStyle="color:red; display:block" for="email"></h:message>
-				
+			
+		
+		<h:outputLabel id="txtDataNascimento" value="Data Nascimento:" for="data" />
+		<p:calendar label="Data Nascimento" value="#{alunoBean.aluno.nascimento}" size="10" maxlength="10" required="true" requiredMessage="Digite sua data de nascimento">
+    	<f:convertDateTime pattern="d/M/yyyy" /></p:calendar>
+		<h:message errorStyle="color:red; display:block" for="data"></h:message>
+			
 		<h:outputLabel id="txtSexo" value="Sexo:" for="sexo" />
 			<h:selectOneMenu id="sexo" value="#{alunoBean.aluno.sexo}">
 				<f:selectItem itemValue="M" itemLabel="Masculino" />
@@ -50,7 +48,7 @@
 				
 		<h:panelGrid columns="3">					
 		<h:outputText id="txtLogin" value="Login:" for="login"></h:outputText>
-		<h:inputText id="login" label="Login:" value="#{alunoBean.aluno.login}" size="15" maxlength="15" required="true" requiredMessage="Login deve ter no mínimo 5 e no máximo 15 caracters">
+		<h:inputText id="login" label="Login:" value="#{alunoBean.aluno.login}" size="15" maxlength="15" required="true" validatorMessage="Login deve ter no mínimo 5 caracters com letras e numeros">
 		<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,15}" /></h:inputText>
 		<h:message errorStyle="color:red; display:block" for="login"></h:message>
 		
@@ -59,7 +57,7 @@
 		<p:calendar id="data_entrada" label="Data Entrada:" value="#{alunoBean.aluno.data_entrada}" size="10" maxlength="10" required="true" requiredMessage="Digite sua data de entrada">
 		<f:convertDateTime pattern="d/M/yyyy" /></p:calendar>
 		<h:message errorStyle="color:red; display:block" for="data_entrada"></h:message>
-		
+		 
 		<h:outputText id="txtSenha" value="Senha:" for="senha"></h:outputText>
 		<h:inputSecret id="senha" label="Senha:" value="#{alunoBean.aluno.senha}" size="10" maxlength="10" required="true" redisplay="true" requiredMessage="Digite senha" validatorMessage="senha deve conter no minimo 4 caracters"><f:validateRegex pattern="[a-zA-Z0-9\-\_\.]{4,4}"/></h:inputSecret>
 		<h:message errorStyle="color:red; display:block" for="senha"></h:message>
@@ -67,6 +65,7 @@
 		<h:outputText id="txConfirmaSenha" value="Confirme a senha:" for="confirmasenha"></h:outputText>
 		<h:inputSecret id="confirmasenha" label="Confirmasenha" value="#{alunoBean.confirmasenha}" size="10" maxlength="10" redisplay="true" required="true" requiredMessage="Confirme sua senha."></h:inputSecret>
 		<h:message errorStyle="color:red; display:block" for="confirmasenha"></h:message>
+						
 			
 		<h:outputText></h:outputText> <h:commandButton action="#{alunoBean.salvar}" value="Salvar"></h:commandButton>		
 	</h:panelGrid>

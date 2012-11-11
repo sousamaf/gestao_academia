@@ -1,14 +1,16 @@
 package com.br.tabelas.usuario;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.NaturalId;
 import bd.beans.Pessoa;
 import com.br.tabelas.tipo_usuario.Tipo_usuario;
 
@@ -23,9 +25,10 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = -7982563689101982697L;
 
 	@Id
-	@GeneratedValue
+	@NaturalId
 	@Column(name = "login")
 	private String login;
+	private Boolean ativo;
 	private String nome;
 	private String senha;
 	@OneToOne
@@ -33,9 +36,15 @@ public class Usuario implements Serializable{
 	private Pessoa cpf;
 	@ManyToOne
 	@JoinColumn(name="tipo_usuario")
-	private Tipo_usuario id_usuario;
+	private List<Tipo_usuario> id_usuario;
 	
 	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	public String getLogin() {
 		return login;
 	}
@@ -60,16 +69,17 @@ public class Usuario implements Serializable{
 	public void setCpf(Pessoa cpf) {
 		this.cpf = cpf;
 	}
-	public Tipo_usuario getId_usuario() {
+	public List<Tipo_usuario> getId_usuario() {
 		return id_usuario;
 	}
-	public void setId_usuario(Tipo_usuario id_usuario) {
+	public void setId_usuario(List<Tipo_usuario> id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		result = prime * result
 				+ ((id_usuario == null) ? 0 : id_usuario.hashCode());
@@ -87,6 +97,11 @@ public class Usuario implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (ativo == null) {
+			if (other.ativo != null)
+				return false;
+		} else if (!ativo.equals(other.ativo))
+			return false;
 		if (cpf == null) {
 			if (other.cpf != null)
 				return false;
@@ -113,5 +128,5 @@ public class Usuario implements Serializable{
 		} else if (!senha.equals(other.senha))
 			return false;
 		return true;
-	}	
+	}
 }

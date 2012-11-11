@@ -32,6 +32,8 @@ public class Telefone implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="pessoa")
 	private Pessoa cpf;
+	
+	
 	public int getId_telefone() {
 		return id_telefone;
 	}
